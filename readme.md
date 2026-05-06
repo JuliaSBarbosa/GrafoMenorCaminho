@@ -4,30 +4,33 @@
 
 Trabalho da disciplina Integração e Entrega Contínua do curso de Desenvolvimento de Software Multiplataforma na FATEC Itapira.
 
-O foco é estudar grafos e algoritmos de menor caminho (Dijkstra e A*, também escrito A-star), com uma revisão sistemática da literatura e um recorte em labirinto: pathfinding em grade e ambientes discretos.
+Estudo de grafos e algoritmos de menor caminho (Dijkstra e A*, também A-star), com revisão sistemática da literatura e recorte em labirinto (pathfinding em grade / ambientes discretos).
+
+Neste repositório, por enquanto, só o conteúdo deste arquivo é versionado no Git; o restante do material do grupo fica local (planilhas, PDFs, rascunhos). Ver `.gitignore`.
 
 ---
 
 ## Objetivo
 
-- Fazer a RSL sobre menor caminho em grafos com tema labirinto.
-- Depois, implementar algo alinhado a isso (labirinto em grid, obstáculos, ponto de chegada; pode ser algo educativo ou demonstrativo).
+- Conduzir a RSL sobre menor caminho com tema labirinto.
+- Depois, implementar solução alinhada (grid, obstáculos, meta; uso educativo ou demonstrativo).
 
 ---
 
 ## Por que labirinto?
 
-A primeira busca genérica puxa muita coisa que não interessa (logística em rede urbana, etc.). Labirinto ou grid ajuda a filtrar artigos que falam de caminho em mapa tipo grade, que é onde Dijkstra e A* costumam aparecer juntos em tutorial e comparação.
-
-Também facilita montar uma parte visual no projeto (desenhar o labirinto e o caminho encontrado).
+A busca genérica traz muito ruído (logística, redes urbanas). Labirinto ou grid concentra artigos de pathfinding em mapa celular, onde Dijkstra e A* costumam ser comparados. Facilita também uma parte visual no projeto.
 
 ---
 
 ## Revisão sistemática da literatura
 
-### Query inicial (busca ampla)
+### Bases e período
 
-Primeira varredura nas bases:
+- Busca principal: Google Scholar (literatura não é exaurida; limitação aceita no relatório).
+- Anos: 2020 a 2026 (filtro de datas na busca avançada).
+
+### Query inicial (exploratória, ampla)
 
 ```text
 ("graph" OR "graphs" OR "graph theory" OR "network" OR "road network" OR "transport network")
@@ -37,7 +40,9 @@ AND
 ("Dijkstra" OR "Dijkstra's algorithm" OR "A-star" OR "A star" OR "A-star algorithm")
 ```
 
-### Termos e sinônimos (blocos)
+Resultados aproximados que o grupo registrou (sem o mesmo recorte de ano em todos os casos): Scholar ~18.000; ScienceDirect 9.102; IEEE 2.272; ACM 5.484; Springer 4.230.
+
+### Termos (blocos)
 
 | Bloco | Termos |
 |--------|--------|
@@ -46,64 +51,53 @@ AND
 | Algoritmos | Dijkstra, Dijkstra's algorithm, A*, A-star, A star |
 | Contexto (opcional) | urban mobility, logistics, robotics, navigation, GIS, traffic, indoor navigation |
 
-### Resultados brutos da query inicial (aproximado)
+### Query final (Scholar, 2020–2026)
 
-| Base | Registros |
-|------|-----------|
-| Google Scholar | ~18.000 |
-| ScienceDirect | 9.102 |
-| IEEE Xplore | 2.272 |
-| ACM Digital Library | 5.484 |
-| SpringerLink | 4.230 |
-
-Os números mudam conforme a data da busca e os filtros (ano, tipo de documento). Vale anotar na wiki quando rodou e o que filtrou.
-
-### Query refinada (recorte labirinto)
-
-Mesmos três blocos de cima, mais um quarto bloco para maze / grid:
+Variante compacta + labirinto no título (`intitle`), para lista curta: cerca de 88 registros (número exato varia com o índice).
 
 ```text
-("graph" OR "graphs" OR "graph theory" OR "network" OR "road network" OR "transport network")
+("graph" OR "graphs" OR "graph theory")
 AND
-("shortest path" OR "shortest-path" OR "path finding" OR "pathfinding" OR "route planning" OR "optimal path" OR "least-cost path")
+("shortest path" OR "pathfinding")
 AND
-("Dijkstra" OR "Dijkstra's algorithm" OR "A-star" OR "A star" OR "A-star algorithm")
+("Dijkstra" OR "A-star" OR "A star" OR "A-star algorithm")
 AND
-("maze" OR "labyrinth" OR "grid world" OR "grid-based" OR "grid map" OR "maze solving")
+("maze" OR "labyrinth")
+AND (intitle:maze OR intitle:labyrinth)
 ```
 
-Se em alguma base vier pouco resultado, dá para afrouxar o último bloco (tirar um sinônimo de cada vez) e registrar na wiki o que mudou.
+Limitação: trabalhos com labirinto só no resumo/corpo, sem maze ou labyrinth no título, podem ficar de fora.
+
+### Protocolo do grupo (decisões fechadas)
+
+- Idiomas na triagem: português e inglês.
+- Tipos aceitos: artigo de periódico ou conferência com texto completo; preprint com PDF e método claro; tese/dissertação se bater no tema e tiver PDF.
+- Triagem dos ~88: uma pessoa classifica; outra revisa dúvidas e amostra de exclusões; conflitos em grupo.
+- Após leitura completa: checklist de qualidade 0 / 0,5 / 1 em 7 itens (soma máxima 7). Síntese principal: nota ≥ 4,0; faixa 3,0–3,9 como evidência limitada; abaixo de 3,0 fora da síntese. Se faltar estudo com nota alta, pode-se usar corte ≥ 3,5 uma vez, com justificativa escrita.
+- Motivos de exclusão na planilha local: DUP, ALGO, TEMA, TXT, TIPO, ANO, IDI, QUAL (este último após leitura, por qualidade).
+
+### Próximos passos da RSL
+
+1. Registrar data exata da busca no relatório ou wiki.
+2. Popular planilha local com os 88 (título, ano, URL, decisão, código de exclusão).
+3. Ler na íntegra os incluídos; notas de qualidade e tabela de extração (algoritmo, métricas, resultado, limitações).
+4. Fechar fluxo tipo PRISMA e texto da síntese.
 
 ---
 
 ## Tecnologias utilizadas
 
-A definir (linguagem, libs de grafo, interface, etc.).
+A definir (linguagem, bibliotecas, interface).
 
 ---
 
-## Status do projeto
+## Status
 
 | Item | Status |
 |------|--------|
-| RSL — query ampla | Feita |
-| RSL — refinamento (labirinto) | Em andamento |
-| Implementação (labirinto + algoritmo) | Pendente |
-
----
-
-## Estrutura do repositório
-
-| Caminho | Conteúdo |
-|---------|----------|
-| README.md | Resumo do projeto e strings de busca |
-| Wiki do GitHub | RSL (critérios, triagem, PRISMA, extração) |
-
----
-
-## Documentação
-
-O detalhe da RSL fica na Wiki: termos, bases, inclusão/exclusão, qualidade, resultados.
+| RSL — busca ampla | Feita |
+| RSL — lista final Scholar | ~88 registros (query com intitle); triagem em andamento |
+| Implementação | Pendente |
 
 ---
 
