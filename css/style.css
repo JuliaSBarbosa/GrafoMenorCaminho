@@ -145,3 +145,26 @@ button:hover {
 button:active {
     transform: scale(0.96);
 }
+
+/* Caminho encontrado */
+
+.caminho {
+    background: linear-gradient(135deg, #42a5f5, #1565c0);
+
+    animation: aparecer 0.3s ease;
+}
+
+/* Animação */
+
+@keyframes aparecer {
+
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
