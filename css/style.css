@@ -1,0 +1,170 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+
+    background: linear-gradient(135deg, #dfe9f3, #ffffff);
+
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+
+    font-size: 48px;
+    color: #222;
+
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+/* GRID */
+
+#grid {
+    display: grid;
+
+    grid-template-columns: repeat(10, 55px);
+
+    gap: 6px;
+
+    justify-content: center;
+
+    margin-top: 30px;
+}
+
+/* CÉLULAS */
+
+.celula {
+    width: 55px;
+    height: 55px;
+
+    background-color: #dcdcdc;
+
+    border-radius: 10px;
+
+    border: 2px solid rgba(0,0,0,0.1);
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.celula:hover {
+    transform: scale(1.05);
+
+    background-color: #cfcfcf;
+}
+
+/* Obstáculos */
+
+.obstaculo {
+    background: linear-gradient(135deg, #111, #333);
+
+    border: none;
+}
+
+/* Início */
+
+.inicio {
+    background: linear-gradient(135deg, #02bb4f, #2e7d32);
+
+    border: none;
+}
+
+/* Objetivo */
+
+.objetivo {
+    background: linear-gradient(135deg, #ff1744, #c62828);
+
+    border: none;
+}
+
+/* Legenda */
+
+.legenda {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 30px;
+
+    margin-top: 20px;
+}
+
+.item-legenda {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 18px;
+}
+
+.cor {
+    width: 25px;
+    height: 25px;
+
+    border-radius: 6px;
+
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Botão */
+
+button {
+    margin-top: 25px;
+
+    padding: 12px 24px;
+
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+
+    color: white;
+
+    border: none;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+/* Caminho encontrado */
+
+.caminho {
+    background: linear-gradient(135deg, #42a5f5, #1565c0);
+
+    animation: aparecer 0.3s ease;
+}
+
+/* Animação */
+
+@keyframes aparecer {
+
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

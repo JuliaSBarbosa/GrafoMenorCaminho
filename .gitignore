@@ -1,5 +1,15 @@
-# Só entram no Git o README e este .gitignore.
-# Demais pastas e arquivos ficam locais (planilhas, PDFs, código, etc.).
+# Ignora tudo
 /*
-!readme.md
+
+# Permite arquivos necessários
 !.gitignore
+!readme.md
+!index.html
+
+# Permite pastas
+!css/
+!js/
+
+# Permite conteúdos das pastas
+!css/*
+!js/*
