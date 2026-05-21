@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grafo Menor Caminho</title>
+    <title>Grafo Menor Caminho — Labirinto</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -23,15 +23,16 @@
         <div class="item-legenda"><div class="cor inicio"></div><span>Inicio</span></div>
         <div class="item-legenda"><div class="cor objetivo"></div><span>Objetivo</span></div>
         <div class="item-legenda"><div class="cor obstaculo"></div><span>Obstaculo</span></div>
+        <div class="item-legenda"><div class="cor caminho-legenda"></div><span>Caminho</span></div>
     </div>
     <div id="grid"></div>
     <button type="button" id="buscar">Buscar caminho</button>
-    <p id="metricas"></p>
-    <p id="tamanho-caminho"></p>
-    <button type="button" id="resetar">Resetar</button>
+    <button type="button" id="resetar">Resetar inicio / objetivo / caminho</button>
+    <section id="painel-metricas" class="painel-metricas" aria-live="polite"></section>
     <script src="js/mazeGenerator.js"></script>
     <script src="js/pathfinding.js"></script>
     <script src="js/astar.js"></script>
+    <script src="js/metricas.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
