@@ -19,10 +19,34 @@ h1 {
 
 /* GRID */
 
+.controles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.controles label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.controles input,
+.controles select {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    font-size: 14px;
+}
+
 #grid {
     display: grid;
-
-    grid-template-columns: repeat(10, 55px);
 
     gap: 6px;
 
@@ -109,6 +133,31 @@ h1 {
     border-radius: 6px;
 
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.caminho-legenda {
+    background: linear-gradient(135deg, #42a5f5, #1565c0);
+}
+
+.painel-metricas {
+    max-width: 420px;
+    margin: 20px auto 0;
+    padding: 16px 20px;
+    text-align: left;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.painel-metricas p {
+    margin: 6px 0;
+}
+
+.metrica-alerta {
+    color: #c62828;
+    font-weight: bold;
 }
 
 /* Botão */
