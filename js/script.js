@@ -45,7 +45,7 @@ botaoLimparCaminho.addEventListener("click", () => {
 
 botaoBuscar.addEventListener("click", () => {
     if (!inicio || !objetivo) {
-        alert("Selecione inicio e objetivo");
+        exibirModalErro("Selecione uma celula de inicio e uma celula de fim antes de buscar.");
         return;
     }
 
@@ -92,7 +92,7 @@ botaoBuscar.addEventListener("click", () => {
             custoTotal: resultado.custoTotal,
             encontrou: false
         });
-        document.getElementById("modal-erro").showModal();//alert("Nao existe caminho possivel");
+        exibirModalErro("Nenhum caminho encontrado. Ajuste as paredes ou os pontos escolhidos.");
         return;
     }
 
@@ -289,6 +289,17 @@ function limparCaminhoVisual() {
     document.querySelectorAll(".celula").forEach((celula) => {
         celula.classList.remove("caminho");
     });
+}
+
+function exibirModalErro(mensagem) {
+    const modal = document.getElementById("modal-erro");
+    const texto = document.getElementById("modal-erro-mensagem");
+
+    if (texto) {
+        texto.textContent = mensagem;
+    }
+
+    modal.showModal();
 }
 
 function clamp(valor, min, max) {

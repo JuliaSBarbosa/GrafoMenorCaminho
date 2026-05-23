@@ -18,13 +18,6 @@ function aStar(linhas, colunas, matriz, inicioLinha, inicioColuna, objetivoLinha
     let nosExpandidos = 0;
     let nosVisitados = 0;
 
-    const vizinhos4 = (linha, coluna) => [
-        [linha - 1, coluna],
-        [linha + 1, coluna],
-        [linha, coluna - 1],
-        [linha, coluna + 1]
-    ];
-
     while (abertos.length > 0) {
         abertos.sort((a, b) => {
             const fa =
@@ -59,20 +52,14 @@ function aStar(linhas, colunas, matriz, inicioLinha, inicioColuna, objetivoLinha
             };
         }
 
-        for (const [novaLinha, novaColuna] of vizinhos4(linha, coluna)) {
-            if (
-                novaLinha < 0 ||
-                novaLinha >= linhas ||
-                novaColuna < 0 ||
-                novaColuna >= colunas
-            ) {
-                continue;
-            }
-
+        for (const [novaLinha, novaColuna] of obterVizinhosValidos(
+            linhas,
+            colunas,
+            matriz,
+            linha,
+            coluna
+        )) {
             const celula = matriz[novaLinha][novaColuna];
-            if (celula.classList.contains("obstaculo")) {
-                continue;
-            }
 
             nosVisitados++;
 

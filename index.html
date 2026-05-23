@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grafo Menor Caminho — Labirinto</title>
+    <title>Labirinto — Grafo Menor Caminho</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Labirinto — menor caminho</h1>
+    <h1>🕹️ Labirinto — Grafo Menor Caminho</h1>
     <div class="controles">
         <label>Linhas <input type="number" id="input-linhas" min="5" max="25" value="11"></label>
         <label>Colunas <input type="number" id="input-colunas" min="5" max="25" value="11"></label>
@@ -50,7 +50,7 @@
     <script src="js/metricas.js"></script>
     <script src="js/script.js"></script>
     <dialog id="modal-erro" class="modal-aviso">
-        <p>Nenhum caminho encontrado!</p>
+        <p id="modal-erro-mensagem">Nenhum caminho encontrado!</p>
         <button type="button" onclick="this.closest('dialog').close()">Fechar</button>
     </dialog>
 </body>

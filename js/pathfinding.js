@@ -42,27 +42,14 @@ function dijkstraBusca(
             };
         }
 
-        const vizinhos = [
-            [linha - 1, coluna],
-            [linha + 1, coluna],
-            [linha, coluna - 1],
-            [linha, coluna + 1]
-        ];
-
-        for (const [novaLinha, novaColuna] of vizinhos) {
-            if (
-                novaLinha < 0 ||
-                novaLinha >= linhas ||
-                novaColuna < 0 ||
-                novaColuna >= colunas
-            ) {
-                continue;
-            }
-
+        for (const [novaLinha, novaColuna] of obterVizinhosValidos(
+            linhas,
+            colunas,
+            matriz,
+            linha,
+            coluna
+        )) {
             const vizinho = matriz[novaLinha][novaColuna];
-            if (vizinho.classList.contains("obstaculo")) {
-                continue;
-            }
 
             nosVisitados++;
             const id = chave(novaLinha, novaColuna);
@@ -91,6 +78,33 @@ function custoCelula(celula) {
     }
 
     return 1;
+}
+
+function obterVizinhosValidos(linhas, colunas, matriz, linha, coluna) {
+    const direcoes = [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1]
+    ];
+
+    return direcoes
+        .map(([deltaLinha, deltaColuna]) => [
+            linha + deltaLinha,
+            coluna + deltaColuna
+        ])
+        .filter(([novaLinha, novaColuna]) => {
+            if (
+                novaLinha < 0 ||
+                novaLinha >= linhas ||
+                novaColuna < 0 ||
+                novaColuna >= colunas
+            ) {
+                return false;
+            }
+
+            return !matriz[novaLinha][novaColuna].classList.contains("obstaculo");
+        });
 }
 
 function reconstruirCaminho(pais, linha, coluna) {
