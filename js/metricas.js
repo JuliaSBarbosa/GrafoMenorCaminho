@@ -7,6 +7,7 @@ function exibirMetricasPainel({
     nosVisitados,
     nosExpandidos,
     tamanhoCaminho,
+    custoTotal,
     encontrou
 }) {
     const painel = document.getElementById("painel-metricas");
@@ -19,6 +20,7 @@ function exibirMetricasPainel({
             <p><strong>Tempo:</strong> ${tempoMs.toFixed(2)} ms</p>
             <p><strong>Nos visitados:</strong> ${nosVisitados}</p>
             <p><strong>Nos expandidos:</strong> ${nosExpandidos}</p>
+            <p><strong>Custo total:</strong> ${custoTotal}</p>
         `;
         return;
     }
@@ -29,6 +31,7 @@ function exibirMetricasPainel({
         <p><strong>Nos visitados:</strong> ${nosVisitados}</p>
         <p><strong>Nos expandidos:</strong> ${nosExpandidos}</p>
         <p><strong>Comprimento do caminho:</strong> ${tamanhoCaminho} celulas</p>
+        <p><strong>Custo total:</strong> ${custoTotal}</p>
     `;
 }
 

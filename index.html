@@ -18,16 +18,31 @@
                 <option value="astar">A* (Manhattan)</option>
             </select>
         </label>
+        <fieldset class="ferramentas" aria-label="Ferramenta de edicao">
+            <legend>Ferramenta</legend>
+            <input type="radio" name="modo-edicao" id="modo-inicio" value="inicio" checked>
+            <label for="modo-inicio">Inicio</label>
+            <input type="radio" name="modo-edicao" id="modo-objetivo" value="objetivo">
+            <label for="modo-objetivo">Fim</label>
+            <input type="radio" name="modo-edicao" id="modo-parede" value="parede">
+            <label for="modo-parede">Parede</label>
+            <input type="radio" name="modo-edicao" id="modo-lento" value="lento">
+            <label for="modo-lento">Lento</label>
+            <input type="radio" name="modo-edicao" id="modo-livre" value="livre">
+            <label for="modo-livre">Livre</label>
+        </fieldset>
     </div>
     <div class="legenda">
         <div class="item-legenda"><div class="cor inicio"></div><span>Inicio</span></div>
         <div class="item-legenda"><div class="cor objetivo"></div><span>Objetivo</span></div>
         <div class="item-legenda"><div class="cor obstaculo"></div><span>Obstaculo</span></div>
+        <div class="item-legenda"><div class="cor lento"></div><span>Lento</span></div>
         <div class="item-legenda"><div class="cor caminho-legenda"></div><span>Caminho</span></div>
     </div>
     <div id="grid"></div>
     <button type="button" id="buscar">Buscar caminho</button>
-    <button type="button" id="resetar">Resetar inicio / objetivo / caminho</button>
+    <button type="button" id="limpar-caminho">Limpar caminho</button>
+    <button type="button" id="resetar">Resetar inicio / objetivo</button>
     <section id="painel-metricas" class="painel-metricas" aria-live="polite"></section>
     <script src="js/mazeGenerator.js"></script>
     <script src="js/pathfinding.js"></script>

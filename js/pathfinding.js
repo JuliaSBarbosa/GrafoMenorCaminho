@@ -12,21 +12,31 @@ function dijkstraBusca(
 ) {
     const chave = (l, c) => `${l}-${c}`;
 
-    let fila = [[inicioLinha, inicioColuna]];
-    const visitados = new Set([chave(inicioLinha, inicioColuna)]);
+    let fila = [[inicioLinha, inicioColuna, 0]];
+    const distancias = new Map([[chave(inicioLinha, inicioColuna), 0]]);
+    const visitados = new Set();
     const pais = new Map();
 
     let nosVisitados = 0;
     let nosExpandidos = 0;
 
     while (fila.length > 0) {
-        const [linha, coluna] = fila.shift();
+        fila.sort((a, b) => a[2] - b[2]);
+        const [linha, coluna, custoAtual] = fila.shift();
+        const atual = chave(linha, coluna);
+
+        if (visitados.has(atual)) {
+            continue;
+        }
+
+        visitados.add(atual);
         nosExpandidos++;
 
         if (linha === objetivoLinha && coluna === objetivoColuna) {
             return {
                 encontrou: true,
                 pais,
+                custoTotal: custoAtual,
                 nosVisitados,
                 nosExpandidos
             };
@@ -54,13 +64,14 @@ function dijkstraBusca(
                 continue;
             }
 
-            const id = chave(novaLinha, novaColuna);
             nosVisitados++;
+            const id = chave(novaLinha, novaColuna);
+            const novoCusto = custoAtual + custoCelula(vizinho);
 
-            if (!visitados.has(id)) {
-                fila.push([novaLinha, novaColuna]);
-                visitados.add(id);
-                pais.set(id, chave(linha, coluna));
+            if (!distancias.has(id) || novoCusto < distancias.get(id)) {
+                distancias.set(id, novoCusto);
+                fila.push([novaLinha, novaColuna, novoCusto]);
+                pais.set(id, atual);
             }
         }
     }
@@ -68,9 +79,18 @@ function dijkstraBusca(
     return {
         encontrou: false,
         pais: null,
+        custoTotal: 0,
         nosVisitados,
         nosExpandidos
     };
+}
+
+function custoCelula(celula) {
+    if (celula.classList.contains("lento")) {
+        return 5;
+    }
+
+    return 1;
 }
 
 function reconstruirCaminho(pais, linha, coluna) {

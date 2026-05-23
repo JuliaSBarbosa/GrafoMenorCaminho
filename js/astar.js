@@ -10,6 +10,7 @@ function aStar(linhas, colunas, matriz, inicioLinha, inicioColuna, objetivoLinha
 
     const abertos = [[inicioLinha, inicioColuna]];
     const conjuntoAbertos = new Set([chave(inicioLinha, inicioColuna)]);
+    const fechados = new Set();
 
     const gScore = new Map([[chave(inicioLinha, inicioColuna), 0]]);
     const pais = new Map();
@@ -41,12 +42,18 @@ function aStar(linhas, colunas, matriz, inicioLinha, inicioColuna, objetivoLinha
         }
 
         conjuntoAbertos.delete(atual);
+        if (fechados.has(atual)) {
+            continue;
+        }
+
+        fechados.add(atual);
         nosExpandidos++;
 
         if (linha === objetivoLinha && coluna === objetivoColuna) {
             return {
                 encontrou: true,
                 pais,
+                custoTotal: gScore.get(atual),
                 nosVisitados,
                 nosExpandidos
             };
@@ -70,7 +77,7 @@ function aStar(linhas, colunas, matriz, inicioLinha, inicioColuna, objetivoLinha
             nosVisitados++;
 
             const vizinho = chave(novaLinha, novaColuna);
-            const custoTentativa = gScore.get(atual) + 1;
+            const custoTentativa = gScore.get(atual) + custoCelula(celula);
 
             if (
                 !gScore.has(vizinho) ||
@@ -90,6 +97,7 @@ function aStar(linhas, colunas, matriz, inicioLinha, inicioColuna, objetivoLinha
     return {
         encontrou: false,
         pais: null,
+        custoTotal: 0,
         nosVisitados,
         nosExpandidos
     };

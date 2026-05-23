@@ -1,6 +1,7 @@
 const grid = document.getElementById("grid");
 const botaoReset = document.getElementById("resetar");
 const botaoBuscar = document.getElementById("buscar");
+const botaoLimparCaminho = document.getElementById("limpar-caminho");
 const botaoNovoLabirinto = document.getElementById("novo-labirinto");
 const inputLinhas = document.getElementById("input-linhas");
 const inputColunas = document.getElementById("input-colunas");
@@ -11,6 +12,7 @@ let objetivo = null;
 let linhas = 10;
 let colunas = 10;
 let matriz = [];
+let pintando = false;
 
 inicializar();
 
@@ -34,7 +36,11 @@ botaoNovoLabirinto.addEventListener("click", () => {
 botaoReset.addEventListener("click", () => {
     resetarSelecao();
     limparMetricasPainel();
+});
+
+botaoLimparCaminho.addEventListener("click", () => {
     limparCaminhoVisual();
+    limparMetricasPainel();
 });
 
 botaoBuscar.addEventListener("click", () => {
@@ -83,6 +89,7 @@ botaoBuscar.addEventListener("click", () => {
             nosVisitados: resultado.nosVisitados,
             nosExpandidos: resultado.nosExpandidos,
             tamanhoCaminho: 0,
+            custoTotal: resultado.custoTotal,
             encontrou: false
         });
         document.getElementById("modal-erro").showModal();//alert("Nao existe caminho possivel");
@@ -104,6 +111,7 @@ botaoBuscar.addEventListener("click", () => {
         nosVisitados: resultado.nosVisitados,
         nosExpandidos: resultado.nosExpandidos,
         tamanhoCaminho: tamanho,
+        custoTotal: resultado.custoTotal,
         encontrou: true
     });
 });
@@ -127,20 +135,15 @@ function construirGrade(mapaParedes) {
             celula.dataset.linha = linha;
             celula.dataset.coluna = coluna;
 
-            celula.addEventListener("click", () => {
-                if (celula.classList.contains("obstaculo")) {
-                    return;
-                }
+            celula.addEventListener("mousedown", (event) => {
+                event.preventDefault();
+                pintando = true;
+                tratarCelula(celula);
+            });
 
-                if (!inicio) {
-                    inicio = celula;
-                    celula.classList.add("inicio");
-                    return;
-                }
-
-                if (!objetivo && celula !== inicio) {
-                    objetivo = celula;
-                    celula.classList.add("objetivo");
+            celula.addEventListener("mouseenter", () => {
+                if (pintando && modoPintura()) {
+                    tratarCelula(celula);
                 }
             });
 
@@ -148,6 +151,127 @@ function construirGrade(mapaParedes) {
             grid.appendChild(celula);
         }
     }
+}
+
+document.addEventListener("mouseup", () => {
+    pintando = false;
+});
+
+function tratarCelula(celula) {
+    const modo = modoAtual();
+
+    if (modo === "parede") {
+        transformarEmParede(celula);
+        return;
+    }
+
+    if (modo === "livre") {
+        transformarEmLivre(celula);
+        return;
+    }
+
+    if (modo === "lento") {
+        transformarEmLento(celula);
+        return;
+    }
+
+    if (modo === "inicio") {
+        selecionarInicio(celula);
+        return;
+    }
+
+    selecionarObjetivo(celula);
+}
+
+function selecionarInicio(celula) {
+    if (celula.classList.contains("obstaculo")) {
+        return;
+    }
+
+    limparCaminhoVisual();
+    limparMetricasPainel();
+
+    if (inicio) {
+        inicio.classList.remove("inicio");
+    }
+
+    if (celula === objetivo) {
+        objetivo = null;
+        celula.classList.remove("objetivo");
+    }
+
+    inicio = celula;
+    celula.classList.remove("lento");
+    celula.classList.add("inicio");
+}
+
+function selecionarObjetivo(celula) {
+    if (celula.classList.contains("obstaculo")) {
+        return;
+    }
+
+    limparCaminhoVisual();
+    limparMetricasPainel();
+
+    if (objetivo) {
+        objetivo.classList.remove("objetivo");
+    }
+
+    if (celula === inicio) {
+        inicio = null;
+        celula.classList.remove("inicio");
+    }
+
+    objetivo = celula;
+    celula.classList.remove("lento");
+    celula.classList.add("objetivo");
+}
+
+function transformarEmParede(celula) {
+    limparCaminhoVisual();
+    limparMetricasPainel();
+
+    if (celula === inicio) {
+        inicio = null;
+    }
+
+    if (celula === objetivo) {
+        objetivo = null;
+    }
+
+    celula.classList.remove("inicio", "objetivo", "caminho", "lento");
+    celula.classList.add("obstaculo");
+}
+
+function transformarEmLento(celula) {
+    limparCaminhoVisual();
+    limparMetricasPainel();
+
+    if (celula === inicio) {
+        inicio = null;
+    }
+
+    if (celula === objetivo) {
+        objetivo = null;
+    }
+
+    celula.classList.remove("inicio", "objetivo", "obstaculo", "caminho");
+    celula.classList.add("lento");
+}
+
+function transformarEmLivre(celula) {
+    limparCaminhoVisual();
+    limparMetricasPainel();
+    celula.classList.remove("obstaculo", "lento", "caminho");
+}
+
+function modoAtual() {
+    const selecionado = document.querySelector('input[name="modo-edicao"]:checked');
+    return selecionado ? selecionado.value : "inicio";
+}
+
+function modoPintura() {
+    return ["parede", "lento", "livre"].includes(modoAtual());
 }
 
 function resetarSelecao() {

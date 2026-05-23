@@ -45,6 +45,58 @@ h1 {
     font-size: 14px;
 }
 
+.ferramentas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.ferramentas legend {
+    flex-basis: 100%;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.ferramentas input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ferramentas label {
+    display: inline-flex;
+    min-width: 72px;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 12px;
+    border: 1px solid #bbb;
+    background: #fff;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ferramentas label:first-of-type {
+    border-radius: 8px 0 0 8px;
+}
+
+.ferramentas label:last-of-type {
+    border-radius: 0 8px 8px 0;
+}
+
+.ferramentas input:checked + label {
+    background: #2E7D32;
+    border-color: #2E7D32;
+    color: #fff;
+}
+
 #grid {
     display: grid;
 
@@ -53,6 +105,8 @@ h1 {
     justify-content: center;
 
     margin-top: 30px;
+
+    user-select: none;
 }
 
 /* CÉLULAS */
@@ -84,6 +138,14 @@ h1 {
 
 .obstaculo {
     background: linear-gradient(135deg, #111, #333);
+
+    border: none;
+}
+
+/* Terreno lento */
+
+.lento {
+    background: linear-gradient(135deg, #fbc02d, #f57f17);
 
     border: none;
 }
