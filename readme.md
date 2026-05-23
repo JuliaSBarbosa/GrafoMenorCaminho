@@ -8,6 +8,37 @@ O trabalho aborda algoritmos de menor caminho aplicados a problemas de pathfindi
 
 ---
 
+## Integracao Continua (CI)
+
+O projeto usa GitHub Actions para automatizar verificacoes a cada push ou pull request na branch `main`.
+
+O workflow esta em `.github/workflows/ci.yml` e executa:
+- validacao de sintaxe dos arquivos JavaScript com `node --check`
+- testes automatizados dos algoritmos em `tests/pathfinding.test.js`
+
+Para executar localmente:
+
+```bash
+node tests/pathfinding.test.js
+```
+
+---
+
+## Modelo da Grade (RF01)
+
+O labirinto e representado como uma matriz MxN, armazenada em `matriz`, onde cada posicao corresponde a uma celula da grade.
+
+Estados usados pelas celulas:
+- livre: pode ser percorrida com custo 1
+- obstaculo: bloqueia a passagem
+- lento: pode ser percorrida com custo 5
+- inicio: ponto inicial da busca
+- objetivo: ponto final da busca
+
+A vizinhanca de cada celula usa 4 direcoes: cima, baixo, esquerda e direita. A funcao `obterVizinhosValidos` retorna apenas vizinhos dentro dos limites da matriz e que nao sejam obstaculos.
+
+---
+
 ## 🎯 Objetivo
 
 Investigar aplicações de algoritmos de menor caminho em cenários de labirinto e desenvolver uma implementação prática utilizando grafos e pathfinding.

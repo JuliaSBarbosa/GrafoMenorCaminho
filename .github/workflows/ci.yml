@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar codigo do repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validar sintaxe JavaScript
+        run: |
+          node --check js/script.js
+          node --check js/pathfinding.js
+          node --check js/astar.js
+          node --check js/metricas.js
+          node --check js/mazeGenerator.js
+
+      - name: Executar testes automatizados
+        run: node tests/pathfinding.test.js

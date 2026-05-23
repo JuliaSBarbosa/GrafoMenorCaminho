@@ -9,7 +9,11 @@
 # Permite pastas
 !css/
 !js/
+!.github/
+!tests/
 
 # Permite conteúdos das pastas
 !css/*
 !js/*
+!.github/**
+!tests/*
