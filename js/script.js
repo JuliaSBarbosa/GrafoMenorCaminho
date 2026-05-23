@@ -85,7 +85,7 @@ botaoBuscar.addEventListener("click", () => {
             tamanhoCaminho: 0,
             encontrou: false
         });
-        alert("Nao existe caminho possivel");
+        document.getElementById("modal-erro").showModal();//alert("Nao existe caminho possivel");
         return;
     }
 
