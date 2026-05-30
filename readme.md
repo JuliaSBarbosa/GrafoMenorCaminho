@@ -24,6 +24,28 @@ node tests/pathfinding.test.js
 
 ---
 
+## Continuous Delivery (CD)
+
+O projeto tambem usa GitHub Actions para publicar automaticamente a aplicacao estatica no GitHub Pages.
+
+O workflow esta em `.github/workflows/cd.yml` e executa:
+- validacao de sintaxe dos arquivos JavaScript com `node --check`
+- testes automatizados dos algoritmos em `tests/pathfinding.test.js`
+- preparacao dos arquivos estaticos do site
+- deploy no ambiente `github-pages`
+
+O CD e executado automaticamente a cada push na branch `main` e tambem pode ser iniciado manualmente pela aba Actions do GitHub.
+
+Para a publicacao funcionar, o repositorio deve estar configurado em:
+
+`Settings > Pages > Build and deployment > Source > GitHub Actions`
+
+Depois da primeira execucao com sucesso, o site ficara disponivel em:
+
+`https://juliasbarbosa.github.io/GrafoMenorCaminho/`
+
+---
+
 ## Modelo da Grade (RF01)
 
 O labirinto e representado como uma matriz MxN, armazenada em `matriz`, onde cada posicao corresponde a uma celula da grade.
