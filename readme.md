@@ -28,13 +28,13 @@ node tests/pathfinding.test.js
 
 O projeto tambem usa GitHub Actions para publicar automaticamente a aplicacao estatica no GitHub Pages.
 
-O workflow esta em `.github/workflows/cd.yml` e executa:
+O deploy esta no mesmo workflow de CI, em `.github/workflows/ci.yml`, e executa:
 - validacao de sintaxe dos arquivos JavaScript com `node --check`
 - testes automatizados dos algoritmos em `tests/pathfinding.test.js`
 - preparacao dos arquivos estaticos do site
 - deploy no ambiente `github-pages`
 
-O CD e executado automaticamente a cada push na branch `main` e tambem pode ser iniciado manualmente pela aba Actions do GitHub.
+Em pull requests, o workflow executa apenas as validacoes. Em push na branch `main`, ele executa as validacoes e depois publica o site. O workflow tambem pode ser iniciado manualmente pela aba Actions do GitHub.
 
 Para a publicacao funcionar, o repositorio deve estar configurado em:
 
