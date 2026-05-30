@@ -74,7 +74,7 @@ function dijkstraBusca(
 
 function custoCelula(celula) {
     if (celula.classList.contains("lento")) {
-        return 5;
+        return 1;
     }
 
     return 1;
