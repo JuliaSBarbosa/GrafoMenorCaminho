@@ -1,0 +1,11 @@
+.git
+.github
+.idea
+css
+js
+output
+scripts
+tests
+index.html
+readme.md
+wiki-ci-cd.md

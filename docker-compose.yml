@@ -1,0 +1,6 @@
+services:
+  metricas-grafos:
+    build: .
+    container_name: grafo-menor-caminho-metricas
+    volumes:
+      - ./output:/app/output

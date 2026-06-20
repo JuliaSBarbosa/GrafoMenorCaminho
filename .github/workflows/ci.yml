@@ -1,36 +1,46 @@
 name: CI/CD
 
+# Define quando o workflow sera executado.
 on:
+  # Executa o CI/CD quando houver push na branch principal.
   push:
     branches:
       - main
+  # Executa apenas as validacoes quando houver pull request para a main.
   pull_request:
     branches:
       - main
+  # Permite executar o workflow manualmente pela aba Actions do GitHub.
   workflow_dispatch:
 
+# Permissoes necessarias para ler o repositorio e publicar no GitHub Pages.
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Evita conflito entre deploys do GitHub Pages.
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
+  # Job de CI: valida o codigo e executa os testes automatizados.
   testes:
     runs-on: ubuntu-latest
 
     steps:
+      # Baixa os arquivos do repositorio para a maquina do GitHub Actions.
       - name: Baixar codigo do repositorio
         uses: actions/checkout@v4
 
+      # Instala/configura o Node.js usado para validar e testar os arquivos.
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
+      # Verifica se os arquivos JavaScript possuem erros de sintaxe.
       - name: Validar sintaxe JavaScript
         run: |
           node --check js/script.js
@@ -39,21 +49,40 @@ jobs:
           node --check js/metricas.js
           node --check js/mazeGenerator.js
 
+      # Executa os testes automatizados dos algoritmos de menor caminho.
       - name: Executar testes automatizados
         run: node tests/pathfinding.test.js
 
+      # Verifica se os arquivos Python do laboratorio possuem erros de sintaxe.
+      - name: Validar sintaxe Python
+        run: python -m py_compile app/algorithms.py app/metrics.py app/graph_generator.py app/main.py
+
+      # Confirma que Dijkstra e A* encontram o mesmo menor custo nas grades de teste.
+      - name: Executar testes Python
+        run: python tests/algorithms_test.py
+
+      # Garante que a imagem do laboratorio pode ser construida antes do deploy.
+      - name: Construir imagem Docker
+        run: docker build -t grafo-menor-caminho-metricas .
+
+  # Job de CD: publica a aplicacao estatica no GitHub Pages.
   deploy:
+    # O deploy so comeca se o job de testes terminar com sucesso.
     needs: testes
+    # Impede deploy em pull requests; publica apenas em push na main ou execucao manual.
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    # Ambiente de publicacao usado pelo GitHub Pages.
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      # Baixa novamente os arquivos do repositorio para preparar o pacote de publicacao.
       - name: Baixar codigo do repositorio
         uses: actions/checkout@v4
 
+      # Cria a pasta site com os arquivos estaticos que serao publicados.
       - name: Preparar arquivos do site
         run: |
           mkdir site
@@ -62,14 +91,17 @@ jobs:
           cp -r css site/
           cp -r js site/
 
+      # Configura o ambiente do GitHub Pages dentro do workflow.
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
+      # Envia a pasta site como artefato para o processo de deploy.
       - name: Enviar artefato do site
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
+      # Publica o artefato enviado no GitHub Pages.
       - name: Publicar no GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

@@ -3,6 +3,10 @@ const fs = require("fs");
 const path = require("path");
 const vm = require("vm");
 
+// Arquivo de testes executado automaticamente pelo GitHub Actions no CI/CD.
+// O workflow roda este arquivo com o comando: node tests/pathfinding.test.js
+// Se algum assert falhar, o CI falha e o deploy no GitHub Pages nao acontece.
+
 // Simula o classList do navegador para testar os algoritmos no Node.js.
 class FakeClassList {
     constructor(classes = []) {
@@ -60,6 +64,9 @@ const {
     dijkstraBusca,
     aStar
 } = carregarAlgoritmos();
+
+// Cada bloco abaixo valida um comportamento importante dos algoritmos.
+// Esses testes protegem o projeto contra alteracoes que quebrem o pathfinding.
 
 {
     // Obstaculos devem ser ignorados na lista de vizinhos validos.

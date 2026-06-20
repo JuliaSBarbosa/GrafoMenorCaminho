@@ -4,16 +4,34 @@
 # Permite arquivos necessários
 !.gitignore
 !readme.md
+!wiki-ci-cd.md
 !index.html
+!.dockerignore
+!Dockerfile
+!docker-compose.yml
 
 # Permite pastas
 !css/
 !js/
 !.github/
 !tests/
+!app/
+!output/
+!scripts/
 
 # Permite conteúdos das pastas
 !css/*
 !js/*
 !.github/**
 !tests/*
+!app/*
+!output/.gitkeep
+!scripts/*
+
+# Resultados do laboratorio sao gerados localmente pelo container.
+output/*
+!output/.gitkeep
+
+# Arquivos temporarios criados pelo Python.
+app/__pycache__/
+*.pyc

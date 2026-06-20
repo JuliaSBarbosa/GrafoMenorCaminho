@@ -22,6 +22,61 @@ Para executar localmente:
 node tests/pathfinding.test.js
 ```
 
+O CI tambem valida a sintaxe dos arquivos Python e constroi a imagem Docker do laboratorio de metricas.
+
+---
+
+## Laboratorio de metricas com Docker
+
+Seguindo a estrutura proposta pelo professor, o projeto possui um ambiente Docker para comparar o desempenho dos algoritmos Dijkstra e A* em grades ponderadas.
+
+O container executa os dois algoritmos em grades de diferentes tamanhos e coleta:
+
+- tempo de execucao
+- memoria utilizada
+- quantidade de nos visitados
+- quantidade de nos expandidos
+- custo total do caminho encontrado
+
+### Pre-requisitos
+
+- Git
+- Docker Desktop
+
+### Execucao no Windows
+
+```cmd
+scripts\start.bat
+```
+
+Ou diretamente:
+
+```bash
+docker compose up --build
+```
+
+### Execucao no Linux ou macOS
+
+```bash
+chmod +x scripts/start.sh
+./scripts/start.sh
+```
+
+### Arquivos gerados
+
+Depois da execucao, a pasta `output/` recebe:
+
+```text
+output/
+|-- metrics.csv
+|-- metrics.json
+|-- metrics.md
+|-- performance_graph.png
+`-- iterations_graph.png
+```
+
+O arquivo CSV contem cada medicao, o JSON apresenta um resumo por algoritmo e o `metrics.md` oferece tabelas formatadas para leitura no VS Code. Os graficos comparam tempo de execucao e nos expandidos.
+
 ---
 
 ## Continuous Delivery (CD)
